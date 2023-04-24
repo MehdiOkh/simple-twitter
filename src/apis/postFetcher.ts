@@ -16,17 +16,15 @@ interface IPostList {
 }
 interface IPostReq {
   page: number;
-  perPage: number;
+  perPage?: number;
 }
 interface ICommentsReq {
   postId: string;
-  page: number;
-  perPage: number;
 }
 
 export const PostListFetcher = ({
-  page,
-  perPage,
+  page = 1,
+  perPage = 10,
 }: IPostReq): Promise<IResponse<IPostList>> => {
   return axios.get(`${BASE_URL}posts?page=${page}&perPage=${perPage}`);
 };
@@ -46,10 +44,6 @@ export const SubmitPostFetcher = ({
 };
 export const PostCommentsFetcher = ({
   postId,
-  page,
-  perPage,
 }: ICommentsReq): Promise<IResponse<IPostList>> => {
-  return axios.get(
-    `${BASE_URL}posts/${postId}/comments?page=${page}&perPage=${perPage}`
-  );
+  return axios.get(`${BASE_URL}posts/${postId}/comments`);
 };
