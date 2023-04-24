@@ -32,11 +32,7 @@ const UserProfile = ({
 
   return (
     <Card sx={{ minWidth: 375, maxWidth: 475, marginY: "6px" }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="src/assets/christian-buehner-DItYlc26zVI-unsplash.jpg"
-        title="green iguana"
-      />
+      <CardMedia sx={{ height: 140 }} image={avatar} title="green iguana" />
       <CardContent>
         <Box
           sx={{ display: "flex", justifyContent: "space-between" }}

@@ -9,6 +9,7 @@ import { isLoggedIn } from "../utils/authCheck";
 import { useNavigate } from "react-router-dom";
 import NewPost from "../components/NewPost";
 import { useInView } from "react-intersection-observer";
+import UpdateProfile from "./UpdateProfile";
 
 const Main = () => {
   const nav = useNavigate();
@@ -79,6 +80,7 @@ const Main = () => {
         </Grid>
       </Grid>
       <NewPost />
+      <UpdateProfile />
     </>
   );
 };

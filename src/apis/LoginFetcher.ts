@@ -37,4 +37,19 @@ export const RegisterFetcher = ({
     password,
   });
 };
+export const UpdateProfileFetcher = ({
+  email,
+  password,
+  username,
+  firstName,
+  lastName,
+}: IRegisterReq): Promise<IResponse<ILoginRes>> => {
+  return axios.post(`${BASE_URL}upadte-profile/`, {
+    username,
+    email,
+    firstName,
+    lastName,
+    password,
+  });
+};
 export default LoginFetcher;

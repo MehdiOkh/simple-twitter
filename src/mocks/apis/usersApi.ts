@@ -12,14 +12,16 @@ export const userListGet = rest.get(
             id: 1,
             username: "mahdi",
             email: "okhravi",
-            avatar: "xxx",
+            avatar:
+              "https://www.gannett-cdn.com/presto/2021/03/22/NRCD/9d9dd9e4-e84a-402e-ba8f-daa659e6e6c5-PhotoWord_003.JPG",
             description: "some description",
           },
           {
             id: 2,
             username: "mahdi",
             email: "okhravi",
-            avatar: "xxx",
+            avatar:
+              "https://www.gannett-cdn.com/presto/2021/03/22/NRCD/9d9dd9e4-e84a-402e-ba8f-daa659e6e6c5-PhotoWord_003.JPG",
             description: "some description",
           },
         ],
@@ -42,7 +44,8 @@ export const userGet = rest.get("/users/1", (req, res, ctx) => {
     data: {
       username: "mahdi",
       email: "okhravi",
-      avatar: "xxx",
+      avatar:
+        "https://www.gannett-cdn.com/presto/2021/03/22/NRCD/9d9dd9e4-e84a-402e-ba8f-daa659e6e6c5-PhotoWord_003.JPG",
       description: "some description",
     },
   };

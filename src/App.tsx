@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Login from "./pages/Login";
-import ChangePassword from "./components/ChangePassword";
+import ChangePassword from "./pages/UpdateProfile";
 import UserProfile from "./components/UserProfile";
 import Post from "./components/Post";
 import Posts from "./pages/Main";
@@ -20,6 +20,7 @@ import Main from "./pages/Main";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import NewPost from "./components/NewPost";
+import UpdateProfile from "./pages/UpdateProfile";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
   { path: "/", element: <Main /> },
   { path: "/users/:userId", element: <Profile /> },
   { path: "/register", element: <Register /> },
+  { path: "/update-profile", element: <UpdateProfile /> },
 ]);
 function App() {
   return (

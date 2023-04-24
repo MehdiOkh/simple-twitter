@@ -8,16 +8,24 @@ import {
   TextField,
   InputAdornment,
   Container,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Fab,
 } from "@mui/material";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import LoginFetcher, { RegisterFetcher } from "../apis/LoginFetcher";
-import { toast } from "react-toastify";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { UpdateProfileFetcher } from "../apis/LoginFetcher";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import { UserFetcher } from "../apis/usersFetcher";
+import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const validationSchema = yup.object({
   username: yup.string().required("Username or email is required"),
@@ -31,16 +39,14 @@ const validationSchema = yup.object({
   description: yup.string(),
   avatar: yup.string(),
 });
-const Register = () => {
+const UpdateProfile = () => {
   const nav = useNavigate();
-  // Mutations
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const mutation = useMutation({
-    mutationFn: RegisterFetcher,
+    mutationFn: UpdateProfileFetcher,
     onSuccess: (data) => {
-      axios.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${data.data.data.token}`;
-      toast.success("Login was successful!");
+      toast.success("Profile was updated successfully");
       nav("/");
     },
   });
@@ -56,21 +62,20 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setDialogOpen(false);
       mutation.mutate(values);
     },
   });
-
   return (
-    <Container sx={{ height: "100vh", display: "flex", alignItems: "center" }}>
-      <Card
-        elevation={4}
-        sx={{
-          maxWidth: 400,
-          marginX: "auto",
-        }}
+    <>
+      <Dialog
+        maxWidth="md"
+        onClose={() => setDialogOpen(false)}
+        open={dialogOpen}
       >
         <form onSubmit={formik.handleSubmit}>
-          <CardContent
+          <DialogTitle>Write your post:</DialogTitle>
+          <DialogContent
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -78,16 +83,8 @@ const Register = () => {
               gap: "15px",
             }}
           >
-            <Typography
-              variant="h3"
-              sx={{ fontSize: 18 }}
-              color="text.primary"
-              gutterBottom
-            >
-              Register
-            </Typography>
-
             <TextField
+              sx={{ marginTop: "15px" }}
               id="outlined-basic"
               label="Username"
               variant="outlined"
@@ -182,44 +179,6 @@ const Register = () => {
             />
             <TextField
               id="outlined-basic"
-              label="Firstname"
-              variant="outlined"
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-              name="firstName"
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Lastname"
-              variant="outlined"
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-              name="lastName"
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
-            <TextField
-              id="outlined-basic"
               label="Description"
               variant="outlined"
               size="small"
@@ -258,19 +217,24 @@ const Register = () => {
               error={formik.touched.avatar && Boolean(formik.errors.avatar)}
               helperText={formik.touched.avatar && formik.errors.avatar}
             />
-          </CardContent>
-          <CardActions>
-            <Button
-              sx={{ width: "100%", margin: "auto" }}
-              variant="outlined"
-              type="submit"
-            >
-              Register
-            </Button>
-          </CardActions>
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit">Submit</Button>
+          </DialogActions>
         </form>
-      </Card>
-    </Container>
+      </Dialog>
+      <Box sx={{ bottom: "90px", right: "20px", position: "fixed" }}>
+        <Fab
+          aria-label="save"
+          color="primary"
+          sx={{ padding: "25px" }}
+          onClick={() => setDialogOpen(true)}
+        >
+          <AccountCircleIcon />
+        </Fab>
+      </Box>
+    </>
   );
 };
-export default Register;
+
+export default UpdateProfile;

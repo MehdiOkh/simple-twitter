@@ -36,10 +36,7 @@ const Post = ({ id, username, issueDate, text, avatar }: IPost) => {
         }}
       >
         <ListItemAvatar>
-          <Avatar
-            alt="Remy Sharp"
-            src="src/assets/christian-buehner-DItYlc26zVI-unsplash.jpg"
-          />
+          <Avatar alt="Remy Sharp" src={avatar} />
         </ListItemAvatar>
         <ListItemText
           primary={
