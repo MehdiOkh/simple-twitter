@@ -3,31 +3,36 @@ import { BASE_URL } from "../constants";
 import { IResponse } from "./interfaces";
 
 interface IUser {
-  id: string;
-  username: string;
-  email: string;
-  avatar: string;
-  description: string;
+	id: string;
+	username: string;
+	email: string;
+	avatar: string;
+	description: string;
 }
 interface IUsersList {
-  list: IUser[];
-  page: number;
-  perPage: number;
+	list: IUser[];
+	page: number;
+	perPage: number;
 }
 interface IUsersReq {
-  page: number;
-  perPage: number;
+	page: number;
+	perPage: number;
 }
 export const UsersListFetcher = ({
-  page,
-  perPage,
+	page,
+	perPage,
 }: IUsersReq): Promise<IResponse<IUsersList>> => {
-  return axios.get(`${BASE_URL}users?page=${page}&perPage=${perPage}`);
+	return axios.get(`${BASE_URL}users/`, {
+		params: {
+			page,
+			perPage,
+		},
+	});
 };
 export const UserFetcher = ({
-  userId,
+	userId,
 }: {
-  userId: string;
+	userId: string;
 }): Promise<IResponse<IUser>> => {
-  return axios.get(`${BASE_URL}users/${userId}`);
+	return axios.get(`${BASE_URL}users/${userId}`);
 };

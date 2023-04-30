@@ -3,47 +3,52 @@ import { BASE_URL } from "../constants";
 import { IResponse } from "./interfaces";
 
 export interface IPost {
-  id: string;
-  username: string;
-  text: string;
-  avatar: string;
-  issueDate: string;
+	id: string;
+	username: string;
+	text: string;
+	avatar: string;
+	issueDate: string;
 }
 interface IPostList {
-  list: IPost[];
-  page: number;
-  perPage: number;
+	list: IPost[];
+	page: number;
+	perPage: number;
 }
 interface IPostReq {
-  page: number;
-  perPage?: number;
+	page: number;
+	perPage?: number;
 }
 interface ICommentsReq {
-  postId: string;
+	postId: string;
 }
 
 export const PostListFetcher = ({
-  page = 1,
-  perPage = 10,
+	page = 1,
+	perPage = 10,
 }: IPostReq): Promise<IResponse<IPostList>> => {
-  return axios.get(`${BASE_URL}posts?page=${page}&perPage=${perPage}`);
+	return axios.get(`${BASE_URL}posts/`, {
+		params: {
+			page,
+			perPage,
+		},
+	});
 };
 export const PostFetcher = ({
-  postId,
+	postId,
 }: {
-  postId: string;
+	postId: string;
 }): Promise<IResponse<IPost>> => {
-  return axios.get(`${BASE_URL}posts/${postId}`);
+	return axios.get(`${BASE_URL}post/${postId}`);
 };
 export const SubmitPostFetcher = ({
-  text,
+	text,
 }: {
-  text: string;
+	text: string;
 }): Promise<IResponse<null>> => {
-  return axios.post(`${BASE_URL}posts/`, { text });
+	return axios.post(`${BASE_URL}posts/`, { text });
 };
 export const PostCommentsFetcher = ({
-  postId,
+	postId,
 }: ICommentsReq): Promise<IResponse<IPostList>> => {
-  return axios.get(`${BASE_URL}posts/${postId}/comments`);
+	return axios.get(`${BASE_URL}post/${postId}/comments`);
 };

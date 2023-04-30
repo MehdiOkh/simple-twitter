@@ -74,7 +74,7 @@ const UpdateProfile = () => {
         open={dialogOpen}
       >
         <form onSubmit={formik.handleSubmit}>
-          <DialogTitle>Write your post:</DialogTitle>
+          <DialogTitle>Update your profile:</DialogTitle>
           <DialogContent
             sx={{
               display: "flex",
